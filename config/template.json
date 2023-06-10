@@ -1,0 +1,11 @@
+{
+  "essential": {
+    "name": "template",
+    "dataset_path": "datasets/template",
+    "dataset_type": "train",
+    "label_type": "mask",
+    "use_empty_background": true,
+    "init_seed": 0
+  },
+  "categories": {}
+}
