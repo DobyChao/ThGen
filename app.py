@@ -237,6 +237,8 @@ class JsonEditorGUI:
                 return
             self.data['categories'][new_category] = {
                 "enabled": False,
+                "cls": 0,
+                "rotate": False,
                 "path": "",
                 "min_num": 0,
                 "max_num": 0,
