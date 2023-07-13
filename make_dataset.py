@@ -1,3 +1,4 @@
+import argparse
 import glob
 import json
 import os
@@ -54,20 +55,28 @@ class Generator:
         with open(config, "r") as f:
             dic = json.load(f)
 
-        self.props = dic["properties"]
         self.data = dic["essential"]
         self.categories = dic["categories"]
         self.singles = {k: Single(v) for k, v in dic["categories"].items()}
 
-    def generate(self, num, dataset_type="train", seed=0):
+    def generate(self, num, dataset_type=None, seed=None):
         np.random.seed(seed)
 
-        os.makedirs(os.path.join(self.data["path"], "images", dataset_type), exist_ok=True)
-        os.makedirs(os.path.join(self.data["path"], "labels", dataset_type), exist_ok=True)
+        if dataset_type is None:
+            dataset_type = self.data["dataset_type"]
+        if seed is None:
+            seed = self.data["init_seed"]
+
+        dataset_path = self.data["dataset_path"]
+        if dataset_path[-1] == '/':
+            dataset_path = dataset_path[:-1]
+
+        os.makedirs(os.path.join(dataset_path, "images", dataset_type), exist_ok=True)
+        os.makedirs(os.path.join(dataset_path, "labels", dataset_type), exist_ok=True)
 
         # 生成类别对应文件
-        with open(os.path.join(self.data["path"], "classes.txt"), "w") as f:
-            for category, info in self.categories.items:
+        with open(os.path.join(dataset_path, "classes.txt"), "w") as f:
+            for category, info in self.categories.items():
                 f.write(category + ' ' + str(info['cls']) + "\n")
 
         for i in tqdm(range(num)):
@@ -115,12 +124,8 @@ class Generator:
             import time
             picId = str(int(time.time() * 1000000))
 
-            dataset_path = self.data["path"]
-            if dataset_path[-1] == '/':
-                dataset_path = dataset_path[:-1]
-
             # 保存图片
-            cv2.imwrite(f"{dataset_path}/images/{dataset_type}/{picId}.png", bg)
+            cv2.imwrite(f"{dataset_path}/images/{dataset_type}/{picId}.jpg", bg)
 
             if self.data["label_type"] == "yolo_detect":
                 # 保存yolo格式标签
@@ -137,7 +142,16 @@ class Generator:
                 cv2.imwrite(f"{dataset_path}/labels/{dataset_type}/{picId}_mask.png", mask)
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Generate dataset')
+    parser.add_argument('--config', help='path to config file', default='config/config.json')
+    parser.add_argument('--num', help='number of images to generate', default=100, type=int)
+    return parser.parse_args()
+
+
 if __name__ == '__main__':
-    gen = Generator("config.json")
-    gen.generate(2000, "train", 114514)
-    gen.generate(100, "val", 1919810)
+    args = parse_args()
+    gen = Generator(args.config)
+    gen.generate(args.num)
+    # gen.generate(1, "train", 114514)
+    # gen.generate(100, "val", 1919810)

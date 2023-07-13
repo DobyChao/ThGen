@@ -61,14 +61,16 @@ def overlay_image(img1, img2, x_center, y_center):
     # 根据x_min, y_min, x_max, y_max，修正img2能叠加上的范围
     img2 = img2[y_min - y: y_max - y, x_min - x: x_max - x]
 
-    alpha_1 = img1[:, :, 3] if img1.shape[2] == 4 \
-        else np.ones((img1.shape[0], img1.shape[1]), dtype=np.uint8) / 255.0
+    alpha_1 = img1[:, :, 3] / 255.0 if img1.shape[2] == 4 \
+        else np.ones((img1.shape[0], img1.shape[1]), dtype=np.uint8)
     alpha_2 = img2[:, :, 3] / 255.0
 
-    img1[x_min:x_max, y_min:y_max, :3] = \
-        (alpha_2 * img2[:, :, :3] + alpha_1 * (1 - alpha_2) * img1[x_min:x_max, y_min:y_max,:3]) / \
-        (alpha_2 + alpha_1 * (1 - alpha_2))
-    
+    for c in range(3):
+        img1[y_min:y_max, x_min:x_max, c] = \
+            (alpha_2 * img2[:, :, c] + alpha_1[y_min:y_max, x_min:x_max] *
+             (1 - alpha_2) * img1[y_min:y_max, x_min:x_max, c]) / \
+            (alpha_2 + alpha_1[y_min:y_max, x_min:x_max] * (1 - alpha_2))
+
     if img1.shape[2] == 4:
         img1[:, :, 3] = (alpha_2 + alpha_1 * (1 - alpha_2)) * 255
 
