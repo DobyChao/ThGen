@@ -1,0 +1,48 @@
+{
+  "slice": {
+    "entry": "extensions/slice.py",
+    "description": "Slice an image into smaller pieces.",
+    "args": [
+      {
+        "name": "image_path",
+        "type": "str",
+        "help": "Path to the image image file."
+      },
+      {
+        "name": "output_dir",
+        "type": "str",
+        "help": "Path to the output directory."
+      },
+      {
+        "name": "top",
+        "type": "int",
+        "help": "Top coordinate of the slice"
+      },
+      {
+        "name": "left",
+        "type": "int",
+        "help": "Left coordinate of the slice"
+      },
+      {
+        "name": "bottom",
+        "type": "int",
+        "help": "Bottom coordinate of the slice"
+      },
+      {
+        "name": "right",
+        "type": "int",
+        "help": "Right coordinate of the slice"
+      },
+      {
+        "name": "slice_height",
+        "type": "int",
+        "help": "Height of the slice"
+      },
+      {
+        "name": "slice_width",
+        "type": "int",
+        "help": "Width of the slice"
+      }
+    ]
+  }
+}
