@@ -5,7 +5,7 @@ from PIL import Image
 
 def slice_image(image_path, output_dir, top=0, left=0, bottom=-1, right=-1,
                 slice_height=None, slice_rows=None, slice_width=None, slice_cols=None):
-    image_name = os.path.basename(image_path)
+    image_name = os.path.basename(image_path).split('.')[0]
     print(image_name)
     image = Image.open(image_path)
 

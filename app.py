@@ -7,6 +7,7 @@ from pywebio.output import *
 from pywebio.pin import *
 
 TYPE_MAP = {
+    "float": "float",
     "str": "text",
     "int": "number",
 }
@@ -125,7 +126,7 @@ class JsonEditorGUI:
             for arg in ext_arg.get("args", []):
                 content.append(
                     put_input(unique_prefix + arg['name'], label=arg['name'],
-                              type=TYPE_MAP.get(arg['type'], arg['type']), placeholder=arg['help'])
+                              type=TYPE_MAP.get(arg.get('type', 'text'), 'text'), placeholder=arg['help'])
                 )
                 pin_on_change(unique_prefix + arg['name'], onchange=lambda x: up_exec(), clear=True)
 
@@ -136,6 +137,7 @@ class JsonEditorGUI:
             def exec_command():
                 # print(ext_arg['exec'])
                 os.system(ext_arg['exec'])
+                # self.extensions()
 
             content.append(
                 put_button("执行", onclick=exec_command)

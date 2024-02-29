@@ -39,9 +39,47 @@
         "help": "Height of the slice"
       },
       {
+        "name": "slice_rows",
+        "type": "int",
+        "help": "Number of rows in the slice"
+      },
+      {
         "name": "slice_width",
         "type": "int",
         "help": "Width of the slice"
+      },
+      {
+        "name": "slice_cols",
+        "type": "int",
+        "help": "Number of columns in the slice"
+      }
+    ]
+  },
+  "generate_script_json": {
+    "entry": "extensions/generate_script_json.py",
+    "description": "usage: generate_script_json.py [-h] [--script_path SCRIPT_PATH]",
+    "args": [
+      {
+        "name": "script_path",
+        "help": ""
+      },
+      {
+        "name": "args_path",
+        "help": ""
+      }
+    ]
+  },
+  "make_dataset": {
+    "entry": "make_dataset.py",
+    "description": "usage: make_dataset.py [-h] [--config CONFIG] [--num NUM]",
+    "args": [
+      {
+        "name": "config",
+        "help": "path to config file"
+      },
+      {
+        "name": "num",
+        "help": "number of images to generate"
       }
     ]
   }
