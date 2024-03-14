@@ -69,7 +69,7 @@ def generate_json(script_path, args_path=None):
 # Add command line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--script_path', type=str, help='Path to the script to generate JSON for')
-parser.add_argument('--args_path', type=str, default="", help='Path to the file to write the JSON to')
+parser.add_argument('--args_path', type=str, default="./extensions/arguments.json", help='Path to the file to write the JSON to')
 args = parser.parse_args()
 
 # Generate the JSON

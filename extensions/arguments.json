@@ -82,5 +82,41 @@
         "help": "number of images to generate"
       }
     ]
+  },
+  "fix_pixel": {
+    "entry": "extensions/fix_pixel.py",
+    "description": "usage: fix_pixel.py [-h] --input INPUT --output OUTPUT",
+    "args": [
+      {
+        "name": "input",
+        "help": "path to input image"
+      },
+      {
+        "name": "output",
+        "help": "path to output image"
+      }
+    ]
+  },
+  "multi_process": {
+    "entry": "extensions/multi_process.py",
+    "description": "usage: multi_process.py [-h] [--input_folder INPUT_FOLDER]",
+    "args": [
+      {
+        "name": "input_folder",
+        "help": ""
+      },
+      {
+        "name": "output_folder",
+        "help": ""
+      },
+      {
+        "name": "scale",
+        "help": "Scale factor for resizing"
+      },
+      {
+        "name": "rotate",
+        "help": "Rotation angle"
+      }
+    ]
   }
 }
